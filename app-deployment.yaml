@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registration-login-demo
+spec:
+  selector:
+    matchLabels:
+      app: registration-login-demo
+  template:
+    metadata:
+      labels:
+        app: registration-login-demo
+    spec:
+      containers:
+      - name: app
+        image: registration-login-demo:latest
+        imagePullPolicy: Never # استفاده از image محلی
+        ports:
+        - containerPort: 8081
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql:3306/Spring_Project_Demo?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true"
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/resources
+      volumes:
+      - name: config-volume
+        configMap:
+          name: app-config

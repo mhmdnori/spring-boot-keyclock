@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  app:
+    image: registration-login-demo:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/Spring_Project_Demo?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=springuser
+      - SPRING_DATASOURCE_PASSWORD=123456789
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: on-failure
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456789
+      - MYSQL_DATABASE=Spring_Project_Demo
+      - MYSQL_USER=springuser
+      - MYSQL_PASSWORD=123456789
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p123456789"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  mysql-data:

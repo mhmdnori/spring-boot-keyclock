@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md text-center">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6">Welcome to Spring Boot Demo</h1>
+        <div class="space-y-4">
+            <a th:href="@{/register}" class="block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Register</a>
+            <a th:href="@{/login}" class="block bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition duration-300">Login</a>
+        </div>
+    </div>
+</body>
+</html>

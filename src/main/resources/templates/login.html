@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold text-blue-600 mb-6">Login</h2>
+        <form th:action="@{/login}" method="post" class="space-y-4">
+            <div>
+                <label for="username" class="block text-gray-700">Username:</label>
+                <input type="text" id="username" name="username" class="w-full border rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-600" required />
+            </div>
+            <div>
+                <label for="password" class="block text-gray-700">Password:</label>
+                <input type="password" id="password" name="password" class="w-full border rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-600" required />
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Login</button>
+        </form>
+        <div th:if="${param.error}" class="mt-4 text-red-600 text-center">
+            Invalid username or password.
+        </div>
+        <p class="mt-4 text-center text-gray-600">Don't have an account? <a th:href="@{/register}" class="text-blue-600 hover:underline">Register here</a></p>
+    </div>
+</body>
+</html>
